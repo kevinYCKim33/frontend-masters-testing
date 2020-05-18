@@ -1,3 +1,4 @@
+// watch mode p key... controllers.*posts.todo
 import db from '../utils/db'
 
 async function authorize(req, res, next) {

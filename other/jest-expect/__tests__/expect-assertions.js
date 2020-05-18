@@ -7,12 +7,13 @@ Find a full list of assertions here: https://facebook.github.io/jest/docs/en/exp
 */
 
 test('toBe', () => {
-  // similar to ===
+  // similar to === (actually Object.is)
   expect(1).toBe(1)
   expect(true).toBe(true)
-  expect({}).not.toBe({})
+  expect({}).not.toBe({}) // a cool NOT method...
 })
 
+// objects that reference different things but have same key vals...
 test('toEqual', () => {
   // like `lodash.isEqual`: https://lodash.com/docs/4.17.4#isEqual
   const subject = {a: {b: 'c'}, d: 'e'}
@@ -26,6 +27,7 @@ test('toEqual', () => {
 
 test('toMatchObject', () => {
   // similar to `toEqual`, but for partial equality
+  // as long as the subject has at least all the properties of actual...it will pass..
   const subject = {a: {b: 'c'}, d: 'e'}
   const actual = {a: {b: 'c'}}
   expect(subject).toMatchObject(actual)
@@ -35,6 +37,7 @@ test('toMatchObject', () => {
   expect(subArray).toMatchObject(actArray)
 })
 
+// mock functions...
 test('toHaveBeenCalledTimes', () => {
   const mockFn = jest.fn()
   expect(mockFn).toHaveBeenCalledTimes(0)
@@ -65,6 +68,7 @@ test('toBeFalsy/Truthy', () => {
   expect(0).toBeFalsy()
 })
 
+// some very typescripty vibe!!!
 test('toEqual, toMatchObject, and toHaveBeenCalledWith matching a schema', () => {
   const birthday = {
     day: 18,
@@ -91,8 +95,9 @@ test('mock functions', () => {
   const firstArg = firstCall[0]
   const secondArg = firstCall[1]
   // could also do this on a single line
-  // const [[firstArg, secondArg]] = myFn.mock.calls
+  // const [[firstArg, secondArg]] = myFn.mock.calls // destructuing on crack
 
+  // toBe for string...toEqual to check if object has identical shape
   expect(firstArg).toBe('first')
   expect(secondArg).toEqual({second: 'val'})
 })

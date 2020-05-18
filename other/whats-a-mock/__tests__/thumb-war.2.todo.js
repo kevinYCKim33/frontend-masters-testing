@@ -7,17 +7,29 @@ test('returns winner', () => {
   // change the getWinner implementation to a function
   // that keeps track of how often it's called and
   // the arguments it's called with (Hint #1)
-  utils.getWinner = (p1, p2) => p2
+
+  // getWinner('Kevin', 'Kent')
+  // args = ['Kevin', 'Kent']
+  utils.getWinner = (...args) => {
+    utils.getWinner.mock.calls.push(args)
+    return args[1] // always set the winner to be the second person 0-index
+  }
+  utils.getWinner.mock = {calls: []} // functions are first class objects so they can also have properties
 
   const winner = thumbWar('Ken Wheeler', 'Kent C. Dodds')
+
   expect(winner).toBe('Kent C. Dodds')
   // add an assertion for how many times the getWinner function
   // was supposed to be called (2 times) (Hint #2)
-  //
+  // expect(timesCalled).toBe(2)
+  expect(utils.getWinner.mock.calls).toHaveLength(2) // thumbWar is Best of 3 Kevin...be kind to yourself.
+
   // add another assertion that every time it was called
   // it was called with the right arguments: 'Ken Wheeler', 'Kent C. Dodds'
   // (Hint #3)
-
+  utils.getWinner.mock.calls.forEach(args => {
+    expect(args).toEqual(['Ken Wheeler', 'Kent C. Dodds'])
+  })
   utils.getWinner = originalGetWinner
 })
 

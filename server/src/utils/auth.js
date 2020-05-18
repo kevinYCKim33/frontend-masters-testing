@@ -36,12 +36,16 @@ function getLocalStrategy() {
   })
 }
 
+// i'll be doing it...
 function userToJSON(user) {
   return omit(user, ['exp', 'iat', 'hash', 'salt'])
 }
-
+// ken will be doing it...
+// checking for length, a number and a non number
 function isPasswordAllowed(password) {
   return password.length > 6 && /\d/.test(password) && /\D/.test(password)
+  // \d --> any digit
+  // \D --> any non-digit
 }
 
 export {
@@ -52,3 +56,7 @@ export {
   getUserToken,
   isPasswordAllowed,
 }
+
+// npm test
+// p
+// utils.*auth.todo
